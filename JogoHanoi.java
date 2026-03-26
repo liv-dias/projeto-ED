@@ -14,13 +14,25 @@ public class JogoHanoi {
             Torre t1 = new Torre(qtd);
             Torre t2 = new Torre(qtd);
             Torre t3 = new Torre(qtd);
-            for (int i = 1; i <= qtd; i++){
-                String original = "*";
-                String repete = original.repeat(i);
-                Disco disco_atual = new Disco(i);
-                t1.push(disco_atual);
-                System.out.println("TORRE 1");
-                System.out.println(repete);
+            if (escolha == 4){
+                System.out.println("Obrigado por jogar!");
+                System.exit(0);
+            }
+            if(escolha == 2){
+                for (int i = 1; i <= qtd; i++){
+                    String original = "*";
+                    String repete = original.repeat(i);
+                    Disco disco_atual = new Disco(i);
+                    t1.push(disco_atual);
+                    System.out.println(repete);
+            }
+                System.out.print("TORRE 1");
+                System.out.print(" TORRE 2");
+                System.out.print(" TORRE 3\n");
+            }else if(escolha == 1){
+            }else if(escolha == 3){
+                System.out.println("Reiniciando jogo...");
+                main(args);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
