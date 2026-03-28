@@ -21,8 +21,8 @@ public class JogoHanoi {
             for (int i = 1; i <= qtd; i++){
                     String original = "*";
                     String repete = original.repeat(i);
-                    Disco disco_atual = new Disco(i);
-                    t1.push(disco_atual);
+                    Disco tam_disco = new Disco(i);
+                    t1.push(tam_disco);
             }
             switch(escolha){
                 case 1:
@@ -30,7 +30,7 @@ public class JogoHanoi {
                     int origem = entrada.nextInt();
                     System.out.println("Digite a torre de destino: ");
                     int destino = entrada.nextInt();
-                    if (disco_atual.getTamanho() > t2.discos[t2.topo].getTamanho() || disco_atual.getTamanho() > t3.discos[t3.topo].getTamanho()){
+                    if (t1.tam_disco.getTamanho() > t2.discos[t2.topo].getTamanho() || t1.tam_disco.getTamanho() > t3.discos[t3.topo].getTamanho()){
                         throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
                     }
                     if (origem == 1 && destino == 2){
