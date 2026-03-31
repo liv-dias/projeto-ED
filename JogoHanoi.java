@@ -9,7 +9,6 @@ public class JogoHanoi {
         Scanner entrada = new Scanner(System.in);
         System.out.println("Digite a quantidade de discos que terão na torre: ");
         int qtd = entrada.nextInt();
-        Disco tamanho = new Disco(qtd);
         try{
             Torre t1 = new Torre(qtd);
             Torre t2 = new Torre(qtd);
@@ -18,23 +17,29 @@ public class JogoHanoi {
                 System.out.println("Obrigada por jogar!!");
                 System.exit(0);
             }
-            for (int i = 1; i <= qtd; i++){
-                    String original = "*";
-                    String repete = original.repeat(i);
-                    Disco tam_disco = new Disco(i);
-                    t1.push(tam_disco);
-            }
             switch(escolha){
-                case 1:
-                    System.out.println("Digite a torre de origem: ");
+                case 1 -> {
+                    System.out.println("Digite a torre de origem(1-3): ");
                     int origem = entrada.nextInt();
-                    System.out.println("Digite a torre de destino: ");
+                    System.out.println("Digite a torre de destino(1-3): ");
                     int destino = entrada.nextInt();
-                    if (t1.tam_disco.getTamanho() > t2.discos[t2.topo].getTamanho() || t1.tam_disco.getTamanho() > t3.discos[t3.topo].getTamanho()){
-                        throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
+                    if (origem == 1){
+                        if (t1.getTopo().getTamanho() > t2.getTopo().getTamanho() || t1.getTopo().getTamanho() > t3.getTopo().getTamanho()){
+                            throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
+                        }
                     }
+                     else if (origem == 2){
+                        if (t2.getTopo().getTamanho() > t1.getTopo().getTamanho() || t2.getTopo().getTamanho() > t3.getTopo().getTamanho()){
+                            throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
+                        }
+                    }
+                    else if (origem == 3){
+                        if (t3.getTopo().getTamanho() > t1.getTopo().getTamanho() || t3.getTopo().getTamanho() > t2.getTopo().getTamanho()){
+                            throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
+                        }
+                    }                   
                     if (origem == 1 && destino == 2){
-                        t2.push(t1.pop());
+                        t2.tam_disco.push(t1.tam_disco.pop());
                     }else if (origem == 1 && destino == 3){
                         t3.push(t1.pop());
                     }else if (origem == 2 && destino == 1){
@@ -48,6 +53,7 @@ public class JogoHanoi {
                     }else{
                         throw new InvalidMovementException("Movimento inválido! As torres são numeradas de 1 a 3.");
                     }
+                }
             }
             if (escolha == 4){
                 System.out.println("Obrigado por jogar!");

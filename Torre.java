@@ -1,39 +1,55 @@
 public class Torre{
     // atributos
-    public Disco[] discos;
-    public int topo;
-    public int tamanho;
-    public String elementos[];
-    // construtores
-    public Torre(int tamanho) throws TooSmallException{
-        if(tamanho <= 1){
-            throw new TooSmallException("Erro! As torres devem ter no mínimo 2 discos");
-        }
-        this.tamanho = tamanho;
-        this.discos = new Disco[tamanho];
-        this.topo = -1;
+    private final Pilha<Disco> tam_disco;
+
+    // construtor
+    public Torre(int qtd){
+        this.tam_disco = new Pilha<>(qtd);
     }
-    public boolean isEmpty(){
-        return this.topo == -1;
-    }
-    public boolean isFull(){
-        return topo == tamanho - 1;
+   
+    public Pilha<Disco> getTam_disco() {
+        return this.tam_disco;
     }
 
-    public void push (Disco d) throws IsFullException{
-        if (!this.isFull())
-            this.discos[++this.topo] = d;
-        else
-            throw new IsFullException("Essa torre já está cheia!");
+    public Pilha<Disco> getTam_disco(Pilha<Disco> tam_disco) {
+        return this.tam_disco;
     }
 
-    public String pop() throws IsEmptyException{
-        if (!this.isEmpty()){
-            String temp = this.elementos[topo];
-            topo--;
-            return temp;
+    public void inicializarDiscos(int qtd) throws Exception{
+        if (qtd <= 1){
+            throw new TooSmallException("A quantidade de discos deve ser maior que um(1).");
         }
-        else
-            throw new IsEmptyException("Essa torre está vazia!");
+        for(int i = 1; i <= qtd; i++){
+            String original = "*";
+            String repete = original.repeat(i);
+            System.out.println(repete);
+            Disco disco_atual = new Disco(i);
+            tam_disco.push(disco_atual);
+        }
+    }
+
+    public Disco pop() throws Exception{
+        if (tam_disco.isEmpty()){
+            throw new Exception("A torre está vazia, não é possível retirar um disco.");
+        }
+        return tam_disco.pop();
+    }
+
+    public Disco push(Disco disco) throws Exception{
+        if (!tam_disco.isEmpty() && disco.getTamanho() > tam_disco.topo().getTamanho()){
+            throw new InvalidMovementException("Movimento inválido! Você não pode colocar um disco maior em cima de um menor.");
+        }
+        tam_disco.push(disco);
+        return disco;
+    }
+
+    public Disco getTopo() throws IsEmptyException{
+        if (tam_disco.isEmpty()){
+            throw new IsEmptyException("A torre está vazia, não é possível obter o topo.");
+        }
+        return this.tam_disco.topo();
     }
 }
+
+
+
